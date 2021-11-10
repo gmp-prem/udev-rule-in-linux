@@ -55,7 +55,6 @@ udevadm info --name=/dev/ttyACMx --attribute-walk
 ```
 4. Look for the following attributes
 ```
-KERNELS
 ATTRS{idProduct}=="0043"
 ATTRS{idVendor}=="2341"
 ATTRS{serial}=="75232302221E05110"
@@ -63,7 +62,7 @@ ATTRS{serial}=="75232302221E05110"
 5. Head to `/etc/udev/rules.d/` and create the `10-usb-serial.rules` file, if you already have, do not need to create
 6. Open up and type, save and exit
 ```
-KERNEL=="ttyACM*", KERNELS=="3-1.4", ATTRS{idProduct}=="0043", ATTRS{idVendor}=="2341", ATTRS{serial}=="75232302221E05110", SYMLINK+="YOURNAME"
+KERNEL=="ttyACM*", ATTRS{idProduct}=="0043", ATTRS{idVendor}=="2341", ATTRS{serial}=="75232302221E05110", SYMLINK+="YOURNAME"
 ```
 7. Trigger mapping to take effect, or reboot the ubuntu
 ```
