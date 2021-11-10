@@ -30,7 +30,7 @@ touch 10-usb-serial.rules
 ```
 6. Open up the `10-usb-serial.rules` and type the following, replace the attribute PID, VID and the serial you found from step number 4, then use your custom name  for your USB device e.g. ttyUSB_CAMERA1, ttyUSB_CAMERA2 or anything else you feel comfortable with. This could be more than 1 line of code if you have multiple devices connected and want to assign a static port to every connected device
 ```
-SUBSYSTEM=="tty", ATTRS{idProduct}=="6001", ATTRS{idVendor}=="0403", ATTRS{serial}=="FTYS6KQ7", SYMLINK+="YOURNAME"
+KERNEL=="ttyUSB*", ATTRS{idProduct}=="6001", ATTRS{idVendor}=="0403", ATTRS{serial}=="FTYS6KQ7", SYMLINK+="YOURNAME"
 ```
 7. After finish the code, save the file and trigger the udevadm to allow our mapping take effect
 ```
