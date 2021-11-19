@@ -9,7 +9,7 @@ _these are steps for assigning the **ttyUSBx**, for ttyACMx, there is a little c
 1. Plug in the device
 2. check that if linux reads the device or not using command in the terminal, this should show all ttyUSBx devices you plugged in
 ```
-ls -l /dev/tty/USB*
+ls -l /dev/ttyUSB*
 ```
 3. Check the port detail using **udevadm**, this will show attributes of device you plugged in, the _x_ is the number of port you plugged in, in this case, it can be from 0, 1, 2, 3 and so on
 ```
