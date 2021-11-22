@@ -2,7 +2,7 @@
 How to assign a static port for device on linux ubuntu for ttyUSBx and ttyACMx
 
 <p align="center">
-  <img src=https://github.com/gmp-prem/assigning-static-port-ubuntu/blob/main/Capture2.PNG width="650" height="200">
+  <img src=https://github.com/gmp-prem/assigning-static-port-ubuntu/blob/main/picture.png width="700" height="200">
 </p>
 
 ## Why assign?
