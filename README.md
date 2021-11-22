@@ -1,7 +1,11 @@
 ## Assigning a static port on ubuntu 
 How to assign a static port for device on linux ubuntu for ttyUSBx and ttyACMx
 
-## why assign?
+<p align="center">
+  <img src=https://github.com/gmp-prem/assigning-static-port-ubuntu/blob/main/Capture2.PNG width="650" height="200">
+</p>
+
+## Why assign?
 The linux ubuntu will read usb device sequencially as you plug in, e.g. you have 2 ttyUSBx devices, one for the camera and another one for the servo, if you plug in the camera and the servo respectively, the ubuntu will read camera as ttyUSB0 and servo as ttyUSB1. On the other hand, if you do opposite way, you will read servo as ttyUSB0 and camera as ttyUSB1. To prevent this happens, there is a method to assign a static port on linux ubuntu, of course, there is also for Windows and Mac but this is for the linux only.
 
 ## steps to assign /dev/ttyUSBx
@@ -74,4 +78,4 @@ crw-rw---- 1 root dialout 166, 0 11月  2 12:25 /dev/ttyACM0
 lrwxrwxrwx 1 root root         7 11月  2 12:24 YOURNAME -> ttyACM0
 ```
 
-That's all ! ;)
+P.S. The name you are going to re-assign should be the name that it is easy to remember and use ! otherwise, you might get confuse with what you just re-assgin
