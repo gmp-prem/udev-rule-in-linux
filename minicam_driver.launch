@@ -1,0 +1,32 @@
+<launch>
+	
+  <!-- <arg name="camera_name" value="minicam/raw_image"/> -->
+  <arg name="camera_name" value="color/image_raw"/>
+  
+  
+  <node pkg="nodelet" type="nodelet" name="nodelet_manager" args="manager" output="screen"/>
+
+  <node pkg="nodelet" type="nodelet" name="libuvc_camera" args="load libuvc_camera/driver /nodelet_manager" output="screen">
+    <!-- remap name of the camera -->
+    <remap from="/image_raw" to="$(arg camera_name)"/>
+  
+    <param name="frame_id" value="elp_camera" />
+    
+    <!-- Parameters used to find the camera -->
+    <param name="vendor" value="0x337b"/>
+    <param name="product" value="0x090c"/>
+    <!-- <param name="serial" value="0000:00:14.0"/> -->
+      <!-- If the above parameters aren't unique, choose the first match: -->
+      <!-- <param name="index" value="15"/> -->
+
+    <!-- Image size and type -->
+    <param name="width" value="1280"/>
+    <param name="height" value="720"/>
+    <param name="video_mode" value="mjpeg"/>
+    <param name="frame_rate" value="30"/>
+
+    <!-- <param name="camera_info_url" value="file://$(find my_camera)/config/elp.yaml"/> -->
+  </node>
+
+
+</launch>
