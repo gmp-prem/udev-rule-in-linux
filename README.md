@@ -1,5 +1,5 @@
-## Assigning a static port on ubuntu 
-How to assign a static port for device on linux ubuntu for ttyUSBx and ttyACMx
+## Manage devices dynamically using UDEV in Linux
+How to dynamically manage devices on linux ubuntu by make use of udev rules. Udev is a device manager for Linux that dynamically creates and removes nodes for hardware devices. In short, it helps your computer find your robot easily.
 
 <p align="center">
   <img src=https://github.com/gmp-prem/assigning-static-port-ubuntu/blob/main/picture.png width="700" height="200">
