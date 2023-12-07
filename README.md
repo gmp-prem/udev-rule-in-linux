@@ -79,3 +79,22 @@ lrwxrwxrwx 1 root root         7 11月  2 12:24 YOURNAME -> ttyACM0
 ```
 
 P.S. The name you are going to re-assign should be the name that it is easy to remember and use ! otherwise, you might get confuse with what you just re-assgin
+
+## For USB camera in ROS
+If you want to use USB camera in ROS, [libuvc]([https://wiki.ros.org/libuvc_camera](https://github.com/libuvc/libuvc)https://github.com/libuvc/libuvc) provides [libvuc_camera](https://wiki.ros.org/libuvc_camera) integrated ROS integrated that have some great features:
+1. Dynamic reconfiguration and monitoring of the camera's control settings
+2. Camera calibration [camera_info_manager](https://wiki.ros.org/camera_info_manager)
+3. Image pipeline integration [image_transport](https://wiki.ros.org/image_transport)
+
+🟢 Tested on Linux Ubuntu 20, ROS Noetic
+
+How to integrated ROS interface with your USB camera
+1. Install some important packages
+```
+sudo apt install ros-noetic-rgbd-launch libuvc-dev
+```
+```
+sudo apt install ros-noetic-libuvc-camera
+```
+2. Give permission (chmod) to camera by specifying the product and vendor IDs of your USB
+4. 
