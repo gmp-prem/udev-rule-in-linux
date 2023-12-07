@@ -8,7 +8,7 @@ How to assign a static port for device on linux ubuntu for ttyUSBx and ttyACMx
 ## Why assign?
 The linux ubuntu will read usb device sequencially as you plug in, e.g. you have 2 ttyUSBx devices, one for the camera and another one for the servo, if you plug in the camera and the servo respectively, the ubuntu will read camera as ttyUSB0 and servo as ttyUSB1. On the other hand, if you do opposite way, you will read servo as ttyUSB0 and camera as ttyUSB1. To prevent this happens, there is a method to assign a static port on linux ubuntu, of course, there is also for Windows and Mac but this is for the linux only.
 
-## steps to assign /dev/ttyUSBx
+## Udev for /dev/ttyUSBx
 _these are steps for assigning the **ttyUSBx**, for ttyACMx, there is a little change which will be after this._
 1. Plug in the device
 2. check that if linux reads the device or not using command in the terminal, this should show all ttyUSBx devices you plugged in
@@ -46,7 +46,7 @@ crw-rw---- 1 root dialout 188, 0 11月  2 12:24 /dev/ttyUSB0
 lrwxrwxrwx 1 root root         7 11月  2 12:24 YOURNAME -> ttyUSB0
 ```
 
-## for the ttyACMx
+## Udev for /dev/ttyACMx
 steps are all the same but the command is a bit different, I will have only a command except the explainations
 1. Plug in the device
 2. Check port
@@ -80,7 +80,7 @@ lrwxrwxrwx 1 root root         7 11月  2 12:24 YOURNAME -> ttyACM0
 
 P.S. The name you are going to re-assign should be the name that it is easy to remember and use ! otherwise, you might get confuse with what you just re-assgin
 
-## For USB camera in ROS
+## Udev for USB camera to be integrated in ROS
 If you want to use USB camera in ROS, [libuvc]([https://wiki.ros.org/libuvc_camera](https://github.com/libuvc/libuvc)https://github.com/libuvc/libuvc) provides [libvuc_camera](https://wiki.ros.org/libuvc_camera) integrated ROS interface that have some great features:
 1. Dynamic reconfiguration and monitoring of the camera's control settings
 2. Camera calibration [camera_info_manager](https://wiki.ros.org/camera_info_manager)
