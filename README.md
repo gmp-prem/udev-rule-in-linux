@@ -81,12 +81,12 @@ lrwxrwxrwx 1 root root         7 11月  2 12:24 YOURNAME -> ttyACM0
 P.S. The name you are going to re-assign should be the name that it is easy to remember and use ! otherwise, you might get confuse with what you just re-assgin
 
 ## For USB camera in ROS
-If you want to use USB camera in ROS, [libuvc]([https://wiki.ros.org/libuvc_camera](https://github.com/libuvc/libuvc)https://github.com/libuvc/libuvc) provides [libvuc_camera](https://wiki.ros.org/libuvc_camera) integrated ROS integrated that have some great features:
+If you want to use USB camera in ROS, [libuvc]([https://wiki.ros.org/libuvc_camera](https://github.com/libuvc/libuvc)https://github.com/libuvc/libuvc) provides [libvuc_camera](https://wiki.ros.org/libuvc_camera) integrated ROS interface that have some great features:
 1. Dynamic reconfiguration and monitoring of the camera's control settings
 2. Camera calibration [camera_info_manager](https://wiki.ros.org/camera_info_manager)
 3. Image pipeline integration [image_transport](https://wiki.ros.org/image_transport)
 
-🟢 Tested on Linux Ubuntu 20, ROS Noetic
+🟢 **Tested** on Linux Ubuntu 20, ROS Noetic
 
 How to integrated ROS interface with your USB camera
 1. Install some important packages
@@ -96,5 +96,58 @@ sudo apt install ros-noetic-rgbd-launch libuvc-dev
 ```
 sudo apt install ros-noetic-libuvc-camera
 ```
-2. Give permission (chmod) to camera by specifying the product and vendor IDs of your USB
-4. 
+2. Give permission (chmod) to camera by specifying the product and vendor IDs of your USB using udev rules
+   1. find the product and vendor ID of your camera
+   ```
+   lsusb
+   ```
+   2. go to udev rules directory
+   ```
+   cd /etc/udev/rules.d/
+   ```
+   3. create udev rule file for your camera
+   ```
+   sudo touch 11-udev-camera.rules
+   ```
+   4. insert this code, then change the product and vendor ID that matches from what you have found from `lsusb` coommand (:fire: **use sudo to edit the file because you created udev file with sudo**)
+   ```
+   SUBSYSTEMS=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="08cc",OWNER="myuser"
+   ```
+3. After that, we will restart the udev by
+```
+sudo udevadm trigger
+```
+4. After that we will create the launch file for your USB, go to any package you wish and inside the launch folder, you created the launch file with these xml script
+```
+<launch>
+  <group ns="camera">
+    <node pkg="libuvc_camera" type="camera_node" name="mycam">
+      <!-- Parameters used to find the camera -->
+      <param name="vendor" value="0x0"/>
+      <param name="product" value="0x0"/>
+
+      <!-- Image size and type -->
+      <param name="width" value="640"/>
+      <param name="height" value="480"/>
+      <!-- choose whichever uncompressed format the camera supports: -->
+      <param name="video_mode" value="uncompressed"/> <!-- or yuyv/nv12/mjpeg -->
+      <param name="frame_rate" value="15"/>
+
+      <param name="timestamp_method" value="start"/> <!-- start of frame -->
+      <param name="camera_info_url" value="file:///tmp/cam.yaml"/>
+
+      <param name="auto_exposure" value="3"/> <!-- use aperture_priority auto exposure -->
+      <param name="auto_white_balance" value="false"/>
+    </node>
+  </group>
+</launch>
+```
+You can see that there is a parameter vendor and product, then you replace the orignal with vendor and product ID you wrote in the udev rule file, for example:
+
+in my case, i have vendor and product ID of 337b and 090c respectively, so
+
+`<param name="vendor" value="0x0"/>` would be `<param name="vendor" value="0x337b"/>`
+
+`<param name="product" value="0x0"/>` would be `<param name="product" value="0x090c"/>`
+
+And you can change parameters that suit your application
